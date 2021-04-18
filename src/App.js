@@ -1,9 +1,9 @@
 import './App.css';
-import Carousel from './Carousel.js';
-import Card from './Card.js';
 import Nav from './Nav.js';
 import Signup from './Signup.js';
 import Login from './Login.js';
+import Home from './Home.js';
+import Search from './Search.js';
 
 import {BrowserRouter as Router , Route, Redirect, Switch} from "react-router-dom";
 var myObj = {
@@ -19,17 +19,13 @@ function App() {
         <Nav/>
         <Route path="/login" exact component={Login}></Route>
         <Route path="/signup" exact component={Signup}></Route>
-        
+        <Route path="/search" exact component={Search}></Route>
       </Router>
-      <Nav/>
       <Signup/>
       <Login/>
-      
-      <Carousel/>
-            <Card cakedata={myObj}/>
-            <Card cakedata={myObj}/>
-            <Card cakedata={myObj}/>
-            <Card cakedata={myObj}/>
+      {/* <Home/> */}
+      <Search/>
+    
     </div>
   );
 }

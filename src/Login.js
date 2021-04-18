@@ -28,7 +28,8 @@ class Login extends Component{
                 let apiUrl = "https://apibyashu.herokuapp.com/api/login";
                 axios({
                     url:apiUrl,
-                    method: "get",
+                    method: "post",
+                    data: this.user,
                 }).then((response)=>{
                     console.log(response);
                 }, (error)=>{

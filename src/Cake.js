@@ -1,10 +1,11 @@
-function Card(props) {
+function Cake(props) {
     var cardStyle = {
                 width : '18rem',
                 float : 'left'
                 };
     var imgStyle = {
-        // width : '100px',
+        width : '310px',
+        height : '250px',
         float : 'left'
         };
     
@@ -20,4 +21,4 @@ function Card(props) {
     );
 }
 
-export default Card;
+export default Cake;

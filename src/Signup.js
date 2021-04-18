@@ -25,10 +25,11 @@ class Signup extends Component{
                 // this.setState({
                 //     message :  'logged in successfully'
                 // })
-                let apiUrl = "https://apibyashu.herokuapp.com/api/allcakes";
+                let apiUrl = "https://apibyashu.herokuapp.com/api/register";
                 axios({
                     url:apiUrl,
-                    method: "get",
+                    method: "post",
+                    data: this.user,
                 }).then((response)=>{
                     console.log(response);
                 }, (error)=>{
