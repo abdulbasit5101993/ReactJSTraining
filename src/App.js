@@ -2,32 +2,83 @@ import './App.css';
 import Nav from './Nav.js';
 import Signup from './Signup.js';
 import Login from './Login.js';
+import Forgot from './Forgot.js';
 import Home from './Home.js';
 import Search from './Search.js';
-
+import Cart from './Cart.js';
+import Checkout from './Checkout.js';
+import RemoveItem from './RemoveItem.js';
 import {BrowserRouter as Router , Route, Redirect, Switch} from "react-router-dom";
-var myObj = {
-        name: 'Choclate Truffle',
-        image: 'carousel1.jpg',
-        alt: 'image',
-        price: 880
-        }
-function App() {
+import CakeDetails from './CakeDetails';
+import axios from "axios"
+import { connect } from "react-redux"
+
+function App(props) {
+
+if(localStorage.token && !props.user){
+  var token = localStorage.token
+  console.log('user is logged in')
+  axios({
+    method:'get',
+    url:'https://apibyashu.herokuapp.com/api/getuserdetails',
+    headers:{
+      authtoken:token
+    }
+  }).then((response) =>{
+    props.dispatch({
+      type:'INTIALIZE_USER',
+      payload:response.data.data
+    })
+  }, (error)=>{
+    console.log('error from user details api',error)
+  })
+
+  let getcartdetails ="https://apibyashu.herokuapp.com/api/cakecart"
+    axios({
+        url:getcartdetails,
+        method:"post",
+        headers: {
+            authtoken: localStorage.getItem('token')
+        },
+    }).then((response)=>{   
+      console.log('get cake',response.data);  
+      props.dispatch({
+          type:"CARTDETAILS",
+          payload:response.data.data
+        })
+    }, (error)=>{
+    console.log("error response from add to cart api : ", error)
+    }) 
+}
   return (
     <div className="App">
       <Router>
-        <Nav/>
-        <Route path="/login" exact component={Login}></Route>
-        <Route path="/signup" exact component={Signup}></Route>
-        <Route path="/search" exact component={Search}></Route>
+        <Nav ></Nav>
+        <div>
+            <Switch>
+              <Route path="/" exact component={Home}></Route>
+              <Route path="/login" exact>
+                <Login /> 
+              </Route>
+              <Route path="/signup" exact component={Signup}></Route>
+              <Route path="/forgot" exact component={Forgot}></Route>
+              <Route path="/search" exact component={Search}></Route> 
+              <Route path="/cart" exact component={Cart}></Route> 
+              <Route path="/checkout" component={Checkout}></Route> 
+              <Route path="/cake/:cakeid" exact component={CakeDetails}></Route> 
+              <Route path="/removeitem/:cakeid" exact component={RemoveItem}></Route> 
+              <Route path="/*">
+                  <Redirect to="/"></Redirect>
+              </Route>
+          </Switch>
+        </div>
       </Router>
-      <Signup/>
-      <Login/>
-      {/* <Home/> */}
-      <Search/>
-    
     </div>
-  );
+    )
 }
 
-export default App;
+export default connect(function(state,props){
+  return {
+    user:state?.user
+  }
+})(App);
