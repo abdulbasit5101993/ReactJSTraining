@@ -20,7 +20,7 @@ function Forgot(props){
             setError("Please enter valid credentials")
             
         }else{
-            let apiurl ="https://apibyashu.herokuapp.com/api/recoverpassword"
+            let apiurl ="https://apifromashu.herokuapp.com/api/recoverpassword"
             axios({
                 url:apiurl,
                 method:"post",

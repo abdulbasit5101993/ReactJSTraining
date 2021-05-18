@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 function Home(props){
     let [cakeresults, setCakes] = useState([]);
-    let allcakeapi='https://apibyashu.herokuapp.com/api/allcakes';
+    let allcakeapi='https://apifromashu.herokuapp.com/api/allcakes';
     useEffect(()=>{
         axios({
             method:"get",

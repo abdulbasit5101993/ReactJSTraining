@@ -8,13 +8,13 @@ import { faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
 
 const star = <FontAwesomeIcon icon={faStar} />
 const heart = <FontAwesomeIcon icon={faHeart} />
-function CakeDetails(props){
-    console.log('cakedetails',props);
+function Orders(props){
+    console.log('orders',props);
     let [cakedetails, setCakedetails] = useState({})
     let [cakeIngredients, setcakeIngredients] = useState([])
     let params = useParams()
 
-    useEffect(()=>{
+    useEffect(()=>{ 
         let cakedetailsapi = "https://apibyashu.herokuapp.com/api/cake/"+params.cakeid
         axios({
             url:cakedetailsapi,
@@ -60,7 +60,7 @@ function CakeDetails(props){
     if(props.user  !== undefined){
     var addToCart = (event)=>{
         event.preventDefault()
-        let addtocarturl ="https://apifromashu.herokuapp.com/api/addcaketocart"
+        let addtocarturl ="https://apibyashu.herokuapp.com/api/addcaketocart"
             axios({
                 url:addtocarturl,
                 headers: {
@@ -95,8 +95,9 @@ function CakeDetails(props){
             <div className="row">
                 <div className="col-md-6 col-sm-12 col-xs-12">
                     <div>
-                        <img src={cakedetails.image} 
-                        class="card-img-top img img-responsive" alt="..." style={{height:"350px"}} />
+                    { cakedetails.image ?
+                        <img src={cakedetails.image}    class="card-img-top img img-responsive" alt="..." style={{height:"350px"}} />
+                    : "" }
                     </div>
                     <div className="mt-4">
                     {cakeIngredients?.length >0 && <div className="font-weight-bold" style={{fontSize: "18px"}}>Ingredient:</div>} 
@@ -157,7 +158,8 @@ function CakeDetails(props){
 
 export default connect(function(state,props){
     return {
+        'orders': state && state?.orders,
         'user': state && state?.user,
         'token': state && state?.user?.token,
     }
-})(CakeDetails);  
+})(Orders);  

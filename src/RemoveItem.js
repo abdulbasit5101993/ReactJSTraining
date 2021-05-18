@@ -7,7 +7,7 @@ function RemoveItem(props){
     let params = useParams()
     console.log(props,params)
     var getCartDetails = ()=>{
-        let getcartdetails ="https://apibyashu.herokuapp.com/api/cakecart"
+        let getcartdetails ="https://apifromashu.herokuapp.com/api/cakecart"
             axios({
                 url:getcartdetails,
                 method:"post",
@@ -36,7 +36,7 @@ function RemoveItem(props){
             })
     }
     useEffect(()=>{
-        let removeitemapiurl = "https://apibyashu.herokuapp.com/api/removecakefromcart"
+        let removeitemapiurl = "https://apifromashu.herokuapp.com/api/removecakefromcart"
         axios({
             url:removeitemapiurl,
             method:"post",

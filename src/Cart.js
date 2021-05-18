@@ -1,4 +1,3 @@
-import axios from "axios"
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 
@@ -37,7 +36,7 @@ function Cart(props){
                             <td>
                               <img src={each.image} style={{width:"80px"}}></img>
                             </td>
-                            <td>{each.price}</td>
+                            <td>$ {each.price}</td>
                             <td><Link to={'/removeitem/'+each.cakeid}><button className="btn btn-danger"> <FontAwesomeIcon icon={faTrash} /></button></Link></td>
                           </tr>)
                 })}
@@ -47,7 +46,7 @@ function Cart(props){
           <div className="col-md-3 offset-md-1 col-xs-12 col-sm-12 mt-5">
           <h2 className="text-center">Summary</h2>
           <div className="card pt-5 pb-5">
-            <strong className="mt-2 mb-2">Cart Total : {props?.cartTotal}</strong>
+            <strong className="mt-2 mb-2">Cart Total : $ {props?.cartTotal}</strong>
           <Link to="/checkout">
             <button className="btn btn-info">
                 Checkout

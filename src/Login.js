@@ -1,7 +1,8 @@
 import {useState} from 'react'
 import axios from "axios"
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter, Redirect, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux';
+
 function Login(props){
     var [user, setUser]=useState({})
     var [name, setName]=useState()
@@ -46,7 +47,7 @@ function Login(props){
         //user.password=event.target.value;
     }
     var getCartDetails = ()=>{
-        let getcartdetails ="https://apibyashu.herokuapp.com/api/cakecart"
+        let getcartdetails ="https://apifromashu.herokuapp.com/api/cakecart"
             axios({
                 url:getcartdetails,
                 method:"post",
@@ -69,6 +70,10 @@ function Login(props){
                 type:"CARTTOTAL",
                 payload:total
                 })
+                props.dispatch({
+                type:"CHECKOUTSTEP",
+                payload:1
+                })
                 }
             }, (error)=>{
                 console.log("error response from add to cart api : ", error)
@@ -83,28 +88,37 @@ function Login(props){
         if(errors){
             setFormerrors(errors)
         }else{
-            let apiurl ="https://apibyashu.herokuapp.com/api/login"
-            axios({
-                url:apiurl,
-                method:"post",
-                data: user
-            }).then((response)=>{
-                
-                props.dispatch({
-                    type:"LOGIN",
-                    payload:response.data
-                })
-                console.log("response from login api : ", response.data)
-                if(response.data.token){
-                    localStorage.token = response.data.token
-                    props.history.push("/")
-                    getCartDetails()
-                } else{
-                    alert("Invalid Credentials")
-                }
-            }, (error)=>{
-                console.log("error response from login api : ", error)
+            props.dispatch({
+                type:'LOGIN',
+                payload:user,
             })
+            // console.log('isloggedin true',props.isloggedin)
+            props.history.push("/")
+            // if(props.isloggedin){
+                // props.history.push("/")
+            // }
+            // let apiurl ="https://apibyashu.herokuapp.com/api/login"
+            // axios({
+            //     url:apiurl,
+            //     method:"post",
+            //     data: user
+            // }).then((response)=>{
+                
+            //     props.dispatch({
+            //         type:"LOGIN",
+            //         payload:response.data
+            //     })
+            //     console.log("response from login api : ", response.data)
+            //     if(response.data.token){
+            //         localStorage.token = response.data.token
+            //         props.history.push("/")
+            //         getCartDetails()
+            //     } else{
+            //         alert("Invalid Credentials")
+            //     }
+            // }, (error)=>{
+            //     console.log("error response from login api : ", error)
+            // })
         }
     }
     return(
@@ -114,9 +128,9 @@ function Login(props){
                 <form id="loginform" className="p-4">
                 <div>
                     <input type="email" name="email" className="form-control mt-4" onChange={getEmail} placeholder="Enter your email"></input>
-                    {formerrors?.email && <div className="text-danger">{formerrors.email}</div>}
+                    {props.error?.email && <div className="text-danger">{props.error.email}</div>}
                     <input type="password" name="password" className="form-control mt-4" onChange={getPassword} placeholder="Enter you password"></input>    
-                    {formerrors?.password && <div className="text-danger">{formerrors.password}</div>}
+                    {props.error?.password && <div className="text-danger">{props.error.password}</div>}
                 <div className="mt-2">
                     <div style={{float:"left"}}><Link to="/signup">Signup</Link></div>
                     <div style={{float:"right"}}><Link to="/forgot">Forgot Password</Link></div>
@@ -132,7 +146,9 @@ function Login(props){
 }
 Login = withRouter(Login)
 export default connect(function(state,props){
+    console.log('state ka data ------------',state,props)
     return{
-        token:state && state?.user?.token
+        token:state && state?.user?.token,
+        isloggedin:state && state?.isloggedin
     }
 })(Login)

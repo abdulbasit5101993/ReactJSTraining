@@ -7,10 +7,6 @@ function Carousel() {
     var carousel6='carousel6.jpg';
     var carousel7='carousel7.jpg';
 
-    var imgStyle = {
-                height : '350px',
-                width : '100%'
-                };
     return (
             <div id="carouselExampleFade" className="carousel slide carousel-fade mt-5 mb-5" data-ride="carousel">
             <div className="carousel-inner ">
@@ -18,14 +14,14 @@ function Carousel() {
               <div class="carousel-caption d-none d-md-block">
                   <h1 className="text text-dark font-weight-bold">We deliver happiness to your celebrations</h1>
               </div>
-                <img src={carousel7} className="d-block w-100" alt={carousel4} style={imgStyle}>
+                <img src={carousel7} className="d-block w-100" alt={carousel4}>
                 </img>
               </div>
               <div className=" carousel-item">
-                <img src={carousel4} className="d-block w-100" alt={carousel1} style={imgStyle}></img>
+                <img src={carousel4} className="d-block w-100" alt={carousel1}></img>
               </div>
               <div className="carousel-item">
-                <img src={carousel5} className="d-block w-100" alt={carousel1} style={imgStyle}></img>
+                <img src={carousel5} className="d-block w-100" alt={carousel1}></img>
               </div>
             </div>
               <a className="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">

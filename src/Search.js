@@ -11,7 +11,7 @@ function Search(props){
 
     useEffect(()=>{
         setError('')
-        let searchcakes ="https://apibyashu.herokuapp.com/api/searchcakes?q="+cake
+        let searchcakes ="https://apifromashu.herokuapp.com/api/searchcakes?q="+cake
         axios({
             url:searchcakes,
             method:"get"
@@ -30,11 +30,14 @@ function Search(props){
         })
     },[])
     return (
-        <div className="col-3 col-sm-12 col-xs-12">
+        <div className="col-md-12 col-sm-12 col-xs-12">
+            
+        {/* <div className="col-md-3 col-sm-12 col-xs-12 mb-3"> */}
             {cakes?.length>0 ? cakes.map((each,index)=> {
                 return <Cake cakedata={each} key={index} />
             }) : <div className="alert alert-danger">No Data Found</div>
-            }
+        }
+        {/* </div> */}
         </div>
     )
 }

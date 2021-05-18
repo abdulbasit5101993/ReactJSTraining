@@ -30,17 +30,15 @@ function Navbar(props){
               <ul className="navbar-nav mr-auto">
               {props.user && 
               <li className="nav-item">
-                  <a className="nav-link text-danger" href="#" tabindex="-1" aria-disabled="true">
+                  <a className="nav-link text-danger" href="#"  aria-disabled="true">
                     <span className="badge badge-success">
                     Welcome - {props.user}
                     </span>
                   </a>
               </li>
-
               }
-
-              
               </ul>
+              
               <form className="form-inline my-2 my-lg-0">
               <input onChange={getSearchText} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
               <Link to={"/search?cake="+searchtext}>
@@ -48,12 +46,16 @@ function Navbar(props){
                 <FontAwesomeIcon icon={faSearch} />
               </button>
               </Link>
-              
+              {props.user ? 
+              <Link to="/orderdetails"><button className="btn btn-outline-success mr-2">Orders</button></Link>
+              :
+              ""
+            }
               {props.quantity ? 
               <Link to={"/cart"}>
               <button className="btn btn-outline-warning my-2 my-sm-0 mr-2" type="submit">
               Cart
-                ({props.quantity.length}),
+                ({props.quantity.length})
               </button>
               </Link>
               :
@@ -61,6 +63,7 @@ function Navbar(props){
               }
               {props.loginstatus ?<button className="btn btn-danger"  onClick={logout}>Logout</button>:
               <Link to="/login"><button className="btn btn-primary" >Login</button></Link>}
+              
               </form>
           </div>
           </nav>

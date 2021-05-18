@@ -26,7 +26,7 @@ class Signup extends Component{
                 // this.setState({
                 //     message :  'logged in successfully'
                 // })
-                let apiUrl = "https://apibyashu.herokuapp.com/api/register";
+                let apiUrl = "https://apifromashu.herokuapp.com/api/register";
                 axios({
                     url:apiUrl,
                     method: "post",
@@ -39,7 +39,7 @@ class Signup extends Component{
 
             }else{
                 this.setState({
-                    message : 'failed to login'
+                    message : 'failed to register'
                 }) 
 
             }
