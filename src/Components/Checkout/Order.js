@@ -11,9 +11,10 @@ function Order(props){
             pincode: props.addressform.pincode, 
             cakes: props.cartdetails
         }
+        console.log('orderdata api',orderdata)
 
         props.dispatch({
-            type : "PLACEORDER",
+            type : "PLACE_ORDER",
             payload : orderdata
         })
     

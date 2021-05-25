@@ -1,20 +1,21 @@
-import React,{ Suspense} from "react"
 import './App.css';
-import Nav from './Nav.js';
-import Signup from './Signup.js';
-import Login from './Login.js';
-import Forgot from './Forgot.js';
-import Home from './Home.js';
-import Search from './Search.js';
-import Cart from './Cart.js';
-import Checkout from './Checkout.js';
-import RemoveItem from './RemoveItem.js';
-import {BrowserRouter as Router , Route, Redirect, Switch} from "react-router-dom";
-import CakeDetails from './CakeDetails';
-import OrderDetails from './OrderDetails';
-import axios from "axios"
+import Nav from './Components/Layout/Nav.js';
+import Home from './Components/Cake/Home';
+import Search from './Components/Cake/Search';
+import Signup from './Components/User/Signup.js';
+import Login from './Components/User/Login.js';
+import Forgot from './Components/User/Forgot.js';
+import Cart from './Components/Cart/Cart.js';
+import RemoveItem from './Components/Cart/RemoveItem.js';
+import Checkout from './Components/Checkout/Checkout.js';
+import Orders from "./Components/Order/Orders";
+import CakeDetails from './Components/Cake/CakeDetails';
+import OrderDetails from './Components/Order/OrderDetails';
+
 import { connect } from "react-redux"
-import Orders from "./Orders";
+import axios from "axios"
+import React,{ Suspense} from "react"
+import {BrowserRouter as Router , Route, Redirect, Switch} from "react-router-dom";
 
 var SuspendedAdmin = React.lazy(()=>import('./Admin'))
 function App(props) {
@@ -37,7 +38,7 @@ if(localStorage.token && !props.user){
     console.log('error from user details api',error)
   })
 
-  let getcartdetails ="https://apibyashu.herokuapp.com/api/cakecart"
+  let getcartdetails ="https://apifromashu.herokuapp.com/api/cakecart"
     axios({
         url:getcartdetails,
         method:"post",

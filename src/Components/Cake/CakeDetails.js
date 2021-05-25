@@ -4,18 +4,17 @@ import axios from "axios"
 import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
-
+import { faStar, /* faHeart */ } from '@fortawesome/free-solid-svg-icons'
+var base_url = process.env.REACT_APP_BASE_URL;
 const star = <FontAwesomeIcon icon={faStar} />
-const heart = <FontAwesomeIcon icon={faHeart} />
+// const heart = <FontAwesomeIcon icon={faHeart} />
 function CakeDetails(props){
-    console.log('cakedetails',props);
     let [cakedetails, setCakedetails] = useState({})
     let [cakeIngredients, setcakeIngredients] = useState([])
     let params = useParams()
 
     useEffect(()=>{
-        let cakedetailsapi = "https://apibyashu.herokuapp.com/api/cake/"+params.cakeid
+        let cakedetailsapi = base_url+"/api/cake/"+params.cakeid
         axios({
             url:cakedetailsapi,
             method:"get"
@@ -29,7 +28,7 @@ function CakeDetails(props){
     }, [])
 
     var getCartDetails = ()=>{
-        let getcartdetails ="https://apibyashu.herokuapp.com/api/cakecart"
+        let getcartdetails = base_url+"/api/cakecart"
             axios({
                 url:getcartdetails,
                 method:"post",
@@ -60,7 +59,7 @@ function CakeDetails(props){
     if(props.user  !== undefined){
     var addToCart = (event)=>{
         event.preventDefault()
-        let addtocarturl ="https://apifromashu.herokuapp.com/api/addcaketocart"
+        let addtocarturl = base_url+"/api/addcaketocart"
             axios({
                 url:addtocarturl,
                 headers: {
@@ -96,7 +95,7 @@ function CakeDetails(props){
                 <div className="col-md-6 col-sm-12 col-xs-12">
                     <div>
                         <img src={cakedetails.image} 
-                        class="card-img-top img img-responsive" alt="..." style={{height:"350px"}} />
+                        className="card-img-top img img-responsive" alt="..." style={{height:"350px"}} />
                     </div>
                     <div className="mt-4">
                     {cakeIngredients?.length >0 && <div className="font-weight-bold" style={{fontSize: "18px"}}>Ingredient:</div>} 
@@ -112,9 +111,9 @@ function CakeDetails(props){
                         <br/>
                         
                         { !props.user ? 
-                        <button type="button" class="btn btn-secondary text-uppercase p-3 text-white mr-2 mt-3 font-weight-bold"  title="kindly login to Add" disabled>Add to cart</button> 
+                        <button type="button" className="btn btn-secondary text-uppercase p-3 text-white mr-2 mt-3 font-weight-bold"  title="kindly login to Add" disabled>Add to cart</button> 
                         :
-                        <button type="button" class="btn btn-warning text-uppercase p-3 text-white mr-2 mt-3 font-weight-bold" onClick={addToCart}>Add to cart</button>
+                        <button type="button" className="btn btn-warning text-uppercase p-3 text-white mr-2 mt-3 font-weight-bold" onClick={addToCart}>Add to cart</button>
                         }
                         
                     </div>
@@ -141,15 +140,10 @@ function CakeDetails(props){
                                 <span className="font-italic text-warning"> {cakedetails.flavour}</span>
                             </span>
                         </div>
-
-                        <div className="pb-3 text-uppercase" style={{fontSize: "23px"}}><span className="font-weight-bold">type</span><br/>{cakedetails.type}</div>
-
-                        
+                        <div className="pb-3 text-uppercase" style={{fontSize: "23px"}}><span className="font-weight-bold">type</span><br/>{cakedetails.type}</div>                        
                     </div>
                 </div>
-
             </div>
-
         </div>
         </div>
     )

@@ -1,8 +1,8 @@
+import Cake from './CakeData';
 import {useState, useEffect} from 'react';
-import Cake from './Cake';
 import axios from "axios"
 function Search(props){
-
+    var base_url = process.env.REACT_APP_BASE_URL;
     var [cakes,setCakes]=useState([]);  
     var [error,setError]=useState('')
     
@@ -11,7 +11,7 @@ function Search(props){
 
     useEffect(()=>{
         setError('')
-        let searchcakes ="https://apifromashu.herokuapp.com/api/searchcakes?q="+cake
+        let searchcakes = base_url+"/api/searchcakes?q="+cake
         axios({
             url:searchcakes,
             method:"get"
@@ -19,7 +19,7 @@ function Search(props){
             console.log("response from search cakes api : ", response.data.data)
             setCakes(response.data.data)
             
-            if(response.data.data.length ==0){
+            if(response.data.data.length === 0){
                 setError("No result found. Please try some other cakes.")
             }
 

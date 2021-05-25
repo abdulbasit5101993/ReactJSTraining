@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
-
+var base_url = process.env.REACT_APP_BASE_URL;
 const star = <FontAwesomeIcon icon={faStar} />
 const heart = <FontAwesomeIcon icon={faHeart} />
 function Orders(props){
@@ -15,7 +15,7 @@ function Orders(props){
     let params = useParams()
 
     useEffect(()=>{ 
-        let cakedetailsapi = "https://apibyashu.herokuapp.com/api/cake/"+params.cakeid
+        let cakedetailsapi = base_url+"/api/cake/"+params.cakeid
         axios({
             url:cakedetailsapi,
             method:"get"
@@ -29,7 +29,7 @@ function Orders(props){
     }, [])
 
     var getCartDetails = ()=>{
-        let getcartdetails ="https://apibyashu.herokuapp.com/api/cakecart"
+        let getcartdetails = base_url+"/api/cakecart"
             axios({
                 url:getcartdetails,
                 method:"post",
@@ -60,7 +60,7 @@ function Orders(props){
     if(props.user  !== undefined){
     var addToCart = (event)=>{
         event.preventDefault()
-        let addtocarturl ="https://apibyashu.herokuapp.com/api/addcaketocart"
+        let addtocarturl = base_url+"/api/addcaketocart"
             axios({
                 url:addtocarturl,
                 headers: {

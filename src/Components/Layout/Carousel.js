@@ -11,7 +11,7 @@ function Carousel() {
             <div id="carouselExampleFade" className="carousel slide carousel-fade mt-5 mb-5" data-ride="carousel">
             <div className="carousel-inner ">
               <div className="carousel-item active">
-              <div class="carousel-caption d-none d-md-block">
+              <div className="carousel-caption d-none d-md-block">
                   <h1 className="text text-dark font-weight-bold">We deliver happiness to your celebrations</h1>
               </div>
                 <img src={carousel7} className="d-block w-100" alt={carousel4}>

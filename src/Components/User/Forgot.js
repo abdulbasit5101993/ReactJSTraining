@@ -3,7 +3,7 @@ import axios from "axios"
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 function Forgot(props){
-    
+    var base_url = process.env.REACT_APP_BASE_URL;
     var [user, setUser]=useState({})
     var [error,setError]=useState('')
     
@@ -20,7 +20,7 @@ function Forgot(props){
             setError("Please enter valid credentials")
             
         }else{
-            let apiurl ="https://apifromashu.herokuapp.com/api/recoverpassword"
+            let apiurl =base_url+"/api/recoverpassword"
             axios({
                 url:apiurl,
                 method:"post",

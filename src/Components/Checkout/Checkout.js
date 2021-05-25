@@ -1,8 +1,8 @@
 import {Route, Link, useRouteMatch, NavLink} from "react-router-dom";
-import Address from './Components/Checkout/Address';
-import Summary from './Components/Checkout/Summary';
-import Order from './Components/Checkout/Order';
-import Payment from './Components/Checkout/Payment';
+import Address from './Address';
+import Summary from './Summary';
+import Order from './Order';
+import Payment from './Payment';
 import { connect } from 'react-redux';
 function Checkout(props){
     if(!props.user){
@@ -32,7 +32,7 @@ function Checkout(props){
                     </NavLink>
                 </li>
                 <li className="nav-item mt-3 mb-3">
-                    <NavLink onClick={props.step >= 2 ? '' : handleClick } activeClassName="active" to={url+"/address"}>
+                    <NavLink  onClick={props.step >= 2 ? '' : handleClick } activeClassName="active" to={url+"/address"}>
                         Address
                     </NavLink>
                 </li>
@@ -46,11 +46,7 @@ function Checkout(props){
                         Order
                     </NavLink>
                 </li>
-                </ul>
-                {/* { props.step >= 1 ? 'address' : '' }
-                { props.step >= 2 ? 'payment' : '' }
-                { props.step >= 3 ? 'order' : '' }  */}
-                                
+            </ul>
             </div>
             <div className="col-8 col-md-8 col-sm-9 col-xs-9">
                 <Route path={path} exact component={Summary} />

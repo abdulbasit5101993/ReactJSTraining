@@ -1,16 +1,16 @@
-import Carousel from './Carousel.js';
 import axios from "axios";
-import Cake from "./Cake";
 import { useEffect, useState} from "react";
 import { connect } from 'react-redux';
+import Carousel from '../Layout/Carousel';
+import Cake from './CakeData';
 
 function Home(props){
     let [cakeresults, setCakes] = useState([]);
-    let allcakeapi='https://apifromashu.herokuapp.com/api/allcakes';
+    var base_url = process.env.REACT_APP_BASE_URL;
     useEffect(()=>{
         axios({
             method:"get",
-            url:allcakeapi,
+            url:base_url+'/api/allcakes',
         }).then((response)=>{
             console.log("response from all cakes api", response.data);
             setCakes(response.data.data);

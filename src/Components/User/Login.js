@@ -1,9 +1,11 @@
 import {useState} from 'react'
 import axios from "axios"
-import { Link, withRouter, Redirect, useHistory } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 
 function Login(props){
+    var base_url = process.env.REACT_APP_BASE_URL;
+
     var [user, setUser]=useState({})
     var [name, setName]=useState()
     var [formerrors, setFormerrors] = useState({})
@@ -47,7 +49,7 @@ function Login(props){
         //user.password=event.target.value;
     }
     var getCartDetails = ()=>{
-        let getcartdetails ="https://apifromashu.herokuapp.com/api/cakecart"
+        let getcartdetails =base_url+"/api/cakecart"
             axios({
                 url:getcartdetails,
                 method:"post",
@@ -92,33 +94,11 @@ function Login(props){
                 type:'LOGIN',
                 payload:user,
             })
+            // props.dispatch({
+            //     type:"CART_DETAILS"
+            // })
             // console.log('isloggedin true',props.isloggedin)
             props.history.push("/")
-            // if(props.isloggedin){
-                // props.history.push("/")
-            // }
-            // let apiurl ="https://apibyashu.herokuapp.com/api/login"
-            // axios({
-            //     url:apiurl,
-            //     method:"post",
-            //     data: user
-            // }).then((response)=>{
-                
-            //     props.dispatch({
-            //         type:"LOGIN",
-            //         payload:response.data
-            //     })
-            //     console.log("response from login api : ", response.data)
-            //     if(response.data.token){
-            //         localStorage.token = response.data.token
-            //         props.history.push("/")
-            //         getCartDetails()
-            //     } else{
-            //         alert("Invalid Credentials")
-            //     }
-            // }, (error)=>{
-            //     console.log("error response from login api : ", error)
-            // })
         }
     }
     return(

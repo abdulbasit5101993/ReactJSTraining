@@ -6,12 +6,14 @@ import {useState, useEffect} from 'react';
 
 function OrderDetails(props){
     
-    props.dispatch({
-        type : "ORDER_DETAILS"
-    })
-//useEffect((console.log("props for cake_orders = ",props.cake_orders)), []);
+    useEffect(()=>{
+        props.dispatch({
+            type : "ORDER_DETAILS"
+        })
+    }, [])
+    console.log('this is props for react order details ---',props.myOrders?.cakeorders)
+    
 return(
-
     <div><h1
     style={{
         margin: "auto",
@@ -25,7 +27,7 @@ return(
     My Orders  <ShoppingCartIcon style={{ fontSize: "40px" }} />
     </h1>
     <div className="row" style={{ padding: "10px" }}>
-    {props.myOrder?.length > 0 ? (
+    { props.myOrders?.cakeorders?.length > 0 ? (
         <>
         <div className="col-sm-8 col-md-8 col-md-offset-1 container">
             <table className="table table-hover">
@@ -38,7 +40,7 @@ return(
             </thead>
 
             <tbody>
-            {props.myOrder.map((data, index) => {
+            {props.myOrders?.cakeorders.map((data, index) => {
                 return data.cakes.map((cake, index1) => {
                     return (
                     <tr key={Math.random().toString()} >
@@ -99,11 +101,11 @@ return(
 }
 
 export default connect(function (state, props) {
-console.log("state?.cake_orders ", state?.cake_orders)
+console.log("state?.cake_orders ", state)
 
 return {
     token: state?.user?.token,
-    myOrder : state?.cake_orders,
+    myOrders : state?.cake_orders,
     error_orderDetails  : state?.error_orderDetails
 };
 })(withRouter(OrderDetails));

@@ -4,10 +4,11 @@ import {connect} from "react-redux"
 import axios from "axios"
 
 function RemoveItem(props){
+    var base_url = process.env.REACT_APP_BASE_URL;
     let params = useParams()
     console.log(props,params)
     var getCartDetails = ()=>{
-        let getcartdetails ="https://apifromashu.herokuapp.com/api/cakecart"
+        let getcartdetails = base_url+"/api/cakecart"
             axios({
                 url:getcartdetails,
                 method:"post",

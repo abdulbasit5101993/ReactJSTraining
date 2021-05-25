@@ -3,7 +3,6 @@ var demo = function(state ={user:null}, action){
         case "LOGIN":{
             state = {...state}
             state["isfetching"]=true
-            // state["user"] =action.payload
             return state
         }
 
@@ -32,7 +31,6 @@ var demo = function(state ={user:null}, action){
         }
 
         case "LOGOUT":{
-        
             state = {...state}
             localStorage.clear()
             delete state["isloggedin"]
@@ -50,16 +48,28 @@ var demo = function(state ={user:null}, action){
             return state
         }
         
-        case "CARTTOTAL": {
+        case "CART_TOTAL": {
             state = {...state}
             state["carttotal"] = action.payload
             return state
         }
 
-        case "CARTDETAILS": {
+        case "CART_DETAILS": {
+            state = {...state}
+            state["isfetching"] = true
+            return state
+        }
+        case "CART_DETAILS_SUCCESS": {
             state = {...state}
             state["cartdetails"] = action.payload
             state["iscartdata"]=true
+            return state
+        }
+        
+        case "CART_DETAILS_FAILURE": {
+            state = {...state}
+            delete state["cartdetails"]
+            state["iscartdata"]=false
             return state
         }
 
@@ -89,7 +99,7 @@ var demo = function(state ={user:null}, action){
             state["orderform"]=action.payload
             return state
         }
-        case "PLACEORDER": {
+        case "PLACE_ORDER": {
             state = {...state}
             state["isfetching"]=true
             state["orderformdata"]=action.payload
@@ -97,7 +107,6 @@ var demo = function(state ={user:null}, action){
         }
         case "ORDER_PLACED_SUCCESS": {
             state = {...state}
-        
             delete state["cardata"]
             delete state["cartdetails"]
             delete state["checkoutstep"] 
@@ -106,24 +115,24 @@ var demo = function(state ={user:null}, action){
             delete state["addressform"] 
             delete state["paymentform"] 
             delete state["orderform"]
-        
             state["isfetching"]=false
-            
             return state
         }
+        
         case "ORDER_PLACED_FAILURE": {
             state = {...state}
             state["isfetching"]=false
             return state
         }
+        
         case "ORDER_DETAILS":
 		{
 			state = {...state}
 			state["isorderdetailsfetch"] = true
 			console.log("Before ORDER_DETAILS state =", state)
-
 			return state
 		}
+
         case "ORDER_DETAILS_SUCCESS":
 		{
 			state = {...state}
@@ -134,13 +143,13 @@ var demo = function(state ={user:null}, action){
 
 			return state
 		}
+
 		case "ORDER_DETAILS_FAILURE":
 		{
 			state = {...state}
 			state["isorderdetailsfetch"] = false
 			state["error_orderDetails"] = action.orderDetailsError
 			console.log("After ORDER_DETAILS state =", state)
-
 			return state
 		}
 
